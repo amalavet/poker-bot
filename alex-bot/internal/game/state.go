@@ -1,6 +1,8 @@
 package game
 
 import (
+	"fmt"
+
 	"github.com/amalavet/poker-bot/internal/card"
 )
 
@@ -23,9 +25,10 @@ func (s *State) String() string {
 }
 
 type Player struct {
-	Name  string
-	Chips int
-	Hand  [2]*card.Card
+	Name   string
+	Chips  int
+	Hand   [2]*card.Card
+	Folded bool
 }
 
 func NewState() *State {
@@ -37,12 +40,16 @@ func NewState() *State {
 
 func (s *State) AddPlayer(name string, chips int) {
 	s.Players = append(s.Players, &Player{
-		Name:  name,
-		Chips: chips,
+		Name:   name,
+		Chips:  chips,
+		Folded: false,
 	})
 }
 
-func (s *State) Deal() {
+func (s *State) Deal() error {
+	if !s.Deck.IsFull() {
+		return fmt.Errorf("there are missing cards in the deck")
+	}
 	s.Deck.Shuffle()
 	for i, p := range s.Players {
 		p.Hand[0] = s.Deck[i*2]
@@ -50,4 +57,5 @@ func (s *State) Deal() {
 		s.Deck[i*2] = nil
 		s.Deck[i*2+1] = nil
 	}
+	return nil
 }

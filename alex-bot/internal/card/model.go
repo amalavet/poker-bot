@@ -66,6 +66,15 @@ func (d *Deck) Shuffle() {
 	}
 }
 
+func (d *Deck) IsFull() bool {
+	for _, c := range d {
+		if c == nil {
+			return false
+		}
+	}
+	return true
+}
+
 type Hand [5]*Card
 
 type Card struct {
