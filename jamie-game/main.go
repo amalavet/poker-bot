@@ -205,18 +205,18 @@ func (b Board) String() string {
 }
 
 const pieceString = `
-                     /%s%s%s\
-              /%s%s%s\%s%s%s/%s%s%s\
-       /%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\
-/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\
-\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/
-/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\
-\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/
-/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\
-\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/
-/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\
-\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/
-       \%s%s%s/%s%s%s\%s%s%s/%s%s%s\%s%s%s/
-              \%s%s%s/%s%s%s\%s%s%s/
-                     \%s%s%s/
+         /%s\
+      /%s\  /%s\
+   /%s\  /%s\  /%s\
+/%s\  /%s\  /%s\  /%s\
+\  /%s\  /%s\  /%s\  /
+/%s\  /%s\  /%s\  /%s\    
+\  /%s\  /%s\  /%s\  /
+/%s\  /%s\  /%s\  /%s\
+\  /%s\  /%s\  /%s\  /
+/%s\  /%s\  /%s\  /%s\    
+\  /%s\  /%s\  /%s\  /
+   \  /%s\  /%s\  /
+      \  /%s\  /
+         \  /
 `
