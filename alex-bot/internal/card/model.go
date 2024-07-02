@@ -6,7 +6,7 @@ type (
 )
 
 const (
-	Spades suit = iota + 1
+	Spades suit = iota
 	Hearts
 	Diamonds
 	Clubs
@@ -35,4 +35,10 @@ type Card struct {
 
 func NewCard(s suit, r rank) Card {
 	return Card{s, r}
+}
+
+func (c Card) String() string {
+	ranks := []string{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"}
+	suits := []string{"♠", "♥", "♦", "♣"}
+	return ranks[c.rank-1] + suits[c.suit]
 }
