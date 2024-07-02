@@ -3,10 +3,13 @@ package main
 import (
 	"fmt"
 
-	"github.com/amalavet/poker-bot/internal/card"
+	"github.com/amalavet/poker-bot/internal/game"
 )
 
 func main() {
-	c := card.NewCard(card.Spades, card.Three)
-	fmt.Println(c)
+	state := game.NewState()
+	state.AddPlayer("Alice", 1000)
+	state.AddPlayer("Bob", 1000)
+	state.Deal()
+	fmt.Println(state)
 }
