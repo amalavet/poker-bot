@@ -196,12 +196,12 @@ func NewGame() Board {
 }
 
 func (b Board) String() string {
-	boardString := ""
+	pieces := make([]any, NUM_HEXES)
 	for i := range b {
-		fmt.Printf(pieceString, i)
+		pieces[i] = fmt.Sprintf("X")
 	}
 
-	return boardString
+	return fmt.Sprintf(boardStr, pieces...)
 }
 
 const pieceString = `
@@ -219,4 +219,66 @@ const pieceString = `
    \  /%s\  /%s\  /
       \  /%s\  /
          \  /
+`
+
+const boardString = `
+        / \
+       - %s -
+      / \ / \
+     - %s - %s -
+    / \ / \ / \
+   - %s - %s - %s -
+  / \ / \ / \ / \    
+ - %s - %s - %s - %s -
+  \ / \ / \ / \ /
+   - %s - %s - %s - 
+  / \ / \ / \ / \
+ - %s - %s - %s - %s -  
+  \ / \ / \ / \ /
+   - %s - %s - %s -
+  / \ / \ / \ / \
+ - %s - %s - %s - %s -
+  \ / \ / \ / \ /
+   - %s - %s - %s - 
+  / \ / \ / \ / \
+ - %s - %s - %s - %s -
+  \ / \ / \ / \ /
+   - %s - %s - %s -
+    \ / \ / \ /
+     - %s - %s -
+      \ / \ /
+       - %s -
+        \ /
+`
+    
+const boardStr = `
+                 ---
+                /   \
+             ---  ~  ---
+            /   \   /   \
+         ---  ~  ---  ~  ---
+        /   \   /   \   /   \
+     ---  ~  ---  ~  ---  ~  ---
+    /   \   /   \   /   \   /   \
+   /  ~  ---  ~  ---  ~  ---  ~  \
+    \   /   \   /   \   /   \   /
+     ---  ~  ---  ~  ---  ~  ---
+    /   \   /   \   /   \   /   \
+   /  ~  ---  ~  ---  ~  ---  ~  \ 
+    \   /   \   /   \   /   \   /
+     ---  ~  ---  ~  ---  ~  ---
+    /   \   /   \   /   \   /   \
+   \  ~  ---  ~  ---  ~  ---  ~  /
+    \   /   \   /   \   /   \   /
+     ---  ~  ---  ~  ---  ~  ---
+    /   \   /   \   /   \   /   \
+   \  ~  ---  ~  ---  ~  ---  ~  / 
+    \   /   \   /   \   /   \   /
+     ---  ~  ---  ~  ---  ~  ---
+        \   /   \   /   \   /
+         ---  ~  ---  ~  ---
+            \   /   \   /
+             ---  ~  ---
+                \   /
+                 ---
 `
