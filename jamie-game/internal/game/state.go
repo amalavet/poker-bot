@@ -52,6 +52,7 @@ func (p *Piece) Rotate(n int) {
 type Hex struct {
 	piece     *Piece
 	neighbors [NUM_DIRECTIONS]*Hex
+	id        int
 }
 
 func NewMove(action action, hex int, target int) *Move {
@@ -59,7 +60,7 @@ func NewMove(action action, hex int, target int) *Move {
 }
 
 func (s *State) IsValidMove(move *Move) bool {
-	for _, validMove := range s.GenerateMoves() {
+	for _, validMove := range s.GenerateValidMoves() {
 		if move.hex == validMove.hex &&
 			move.target == validMove.target &&
 			move.action == validMove.action {
@@ -68,6 +69,8 @@ func (s *State) IsValidMove(move *Move) bool {
 	}
 	return false
 }
+
+const WIN_SCORE = 1000
 
 func (s *State) Move(m *Move) {
 	hex := s.board[m.hex]
@@ -85,6 +88,12 @@ func (s *State) Move(m *Move) {
 		}
 		target.piece = hex.piece
 		hex.piece = nil
+		if target.id == RED_BASE && s.turn == BLACK {
+			s.score = WIN_SCORE
+		}
+		if target.id == BLACK_BASE && s.turn == RED {
+			s.score = -WIN_SCORE
+		}
 	case ROTATE:
 		hex.piece.Rotate(m.target)
 	}
@@ -94,10 +103,6 @@ func (s *State) Move(m *Move) {
 	} else {
 		s.turn = RED
 	}
-}
-
-func (s *State) Evaluate() int {
-	return s.score
 }
 
 func (s *State) Undo() {
@@ -132,13 +137,13 @@ func (s *State) Undo() {
 }
 
 func (s *State) RandomMove() {
-	moves := s.GenerateMoves()
+	moves := s.GenerateValidMoves()
 	fmt.Println(moves)
 	move := moves[rand.Intn(len(moves))]
 	s.Move(move)
 }
 
-func (s *State) GenerateMoves() []*Move {
+func (s *State) GenerateValidMoves() []*Move {
 	var moves []*Move
 	for i, hex := range s.board {
 		if hex.piece == nil {
@@ -158,9 +163,18 @@ func (s *State) GenerateMoves() []*Move {
 				continue
 			}
 
+			if n.id == RED_BASE && s.turn == RED {
+				continue
+			}
+
+			if n.id == BLACK_BASE && s.turn == BLACK {
+				continue
+			}
+
 			if n.piece == nil {
 				moves = append(moves, &Move{TRAVEL, i, j})
-			} else if n.piece.team != s.turn {
+			} else if n.piece.team != s.turn &&
+				!n.piece.arrows[(j+3)%NUM_DIRECTIONS] {
 				moves = append(moves, &Move{TRAVEL, i, j})
 			}
 		}

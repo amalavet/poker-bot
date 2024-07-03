@@ -22,7 +22,7 @@ func main() {
 		} else if choice == 1 {
 			state.Undo()
 		} else if choice == 2 {
-			for len(state.GenerateMoves()) > 0 {
+			for len(state.GenerateValidMoves()) > 0 {
 				state.RandomMove()
 				fmt.Println(state)
 			}

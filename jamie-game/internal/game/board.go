@@ -1,5 +1,10 @@
 package game
 
+const (
+	BLACK_BASE = 0
+	RED_BASE   = 33
+)
+
 func NewGame() *State {
 	var board Board
 	for i := range board {
@@ -7,17 +12,20 @@ func NewGame() *State {
 	}
 
 	// Hex 0
+	board[0].id = BLACK_BASE
 	board[0].neighbors[0] = board[2]
 	board[0].neighbors[1] = board[3]
 	board[0].neighbors[5] = board[1]
 
 	// Hex 1
+	board[1].id = 1
 	board[1].neighbors[0] = board[5]
 	board[1].neighbors[1] = board[2]
 	board[1].neighbors[2] = board[0]
 	board[1].neighbors[5] = board[4]
 
 	// Hex 2
+	board[2].id = 2
 	board[2].neighbors[0] = board[6]
 	board[2].neighbors[1] = board[7]
 	board[2].neighbors[2] = board[3]
@@ -26,18 +34,21 @@ func NewGame() *State {
 	board[2].neighbors[5] = board[5]
 
 	// Hex 3
+	board[3].id = 3
 	board[3].neighbors[0] = board[7]
 	board[3].neighbors[1] = board[8]
 	board[3].neighbors[4] = board[0]
 	board[3].neighbors[5] = board[2]
 
 	// Hex 4
+	board[4].id = 4
 	board[4].neighbors[0] = board[10]
 	board[4].neighbors[1] = board[5]
 	board[4].neighbors[2] = board[1]
 	board[4].neighbors[5] = board[9]
 
 	// Hex 5
+	board[5].id = 5
 	board[5].neighbors[0] = board[11]
 	board[5].neighbors[1] = board[6]
 	board[5].neighbors[2] = board[2]
@@ -46,6 +57,7 @@ func NewGame() *State {
 	board[5].neighbors[5] = board[10]
 
 	// Hex 6
+	board[6].id = 6
 	board[6].neighbors[0] = board[12]
 	board[6].neighbors[1] = board[13]
 	board[6].neighbors[2] = board[7]
@@ -54,6 +66,7 @@ func NewGame() *State {
 	board[6].neighbors[5] = board[11]
 
 	// Hex 7
+	board[7].id = 7
 	board[7].neighbors[0] = board[13]
 	board[7].neighbors[1] = board[14]
 	board[7].neighbors[2] = board[8]
@@ -62,17 +75,20 @@ func NewGame() *State {
 	board[7].neighbors[5] = board[6]
 
 	// Hex 8
+	board[8].id = 8
 	board[8].neighbors[0] = board[14]
 	board[8].neighbors[1] = board[15]
 	board[8].neighbors[4] = board[3]
 	board[8].neighbors[5] = board[7]
 
 	// Hex 9
+	board[9].id = 9
 	board[9].neighbors[0] = board[16]
 	board[9].neighbors[1] = board[10]
 	board[9].neighbors[2] = board[4]
 
 	// Hex 10
+	board[10].id = 10
 	board[10].neighbors[0] = board[17]
 	board[10].neighbors[1] = board[11]
 	board[10].neighbors[2] = board[5]
@@ -81,6 +97,7 @@ func NewGame() *State {
 	board[10].neighbors[5] = board[16]
 
 	// Hex 11
+	board[11].id = 11
 	board[11].neighbors[0] = board[18]
 	board[11].neighbors[1] = board[12]
 	board[11].neighbors[2] = board[6]
@@ -89,6 +106,7 @@ func NewGame() *State {
 	board[11].neighbors[5] = board[17]
 
 	// Hex 12
+	board[12].id = 12
 	board[12].neighbors[0] = board[19]
 	board[12].neighbors[1] = board[20]
 	board[12].neighbors[2] = board[13]
@@ -97,6 +115,7 @@ func NewGame() *State {
 	board[12].neighbors[5] = board[18]
 
 	// Hex 13
+	board[13].id = 13
 	board[13].neighbors[0] = board[20]
 	board[13].neighbors[1] = board[21]
 	board[13].neighbors[2] = board[14]
@@ -105,6 +124,7 @@ func NewGame() *State {
 	board[13].neighbors[5] = board[12]
 
 	// Hex 14
+	board[14].id = 14
 	board[14].neighbors[0] = board[21]
 	board[14].neighbors[1] = board[22]
 	board[14].neighbors[2] = board[15]
@@ -113,17 +133,20 @@ func NewGame() *State {
 	board[14].neighbors[5] = board[13]
 
 	// Hex 15
+	board[15].id = 15
 	board[15].neighbors[0] = board[22]
 	board[15].neighbors[4] = board[8]
 	board[15].neighbors[5] = board[14]
 
 	// Hex 16
+	board[16].id = 16
 	board[16].neighbors[0] = board[23]
 	board[16].neighbors[1] = board[17]
 	board[16].neighbors[2] = board[10]
 	board[16].neighbors[3] = board[9]
 
 	// Hex 17
+	board[17].id = 17
 	board[17].neighbors[0] = board[24]
 	board[17].neighbors[1] = board[18]
 	board[17].neighbors[2] = board[11]
@@ -132,6 +155,7 @@ func NewGame() *State {
 	board[17].neighbors[5] = board[23]
 
 	// Hex 18
+	board[18].id = 18
 	board[18].neighbors[0] = board[25]
 	board[18].neighbors[1] = board[19]
 	board[18].neighbors[2] = board[12]
@@ -140,6 +164,7 @@ func NewGame() *State {
 	board[18].neighbors[5] = board[24]
 
 	// Hex 19
+	board[19].id = 19
 	board[19].neighbors[0] = board[26]
 	board[19].neighbors[1] = board[27]
 	board[19].neighbors[2] = board[20]
@@ -148,6 +173,7 @@ func NewGame() *State {
 	board[19].neighbors[5] = board[25]
 
 	// Hex 20
+	board[20].id = 20
 	board[20].neighbors[0] = board[27]
 	board[20].neighbors[1] = board[28]
 	board[20].neighbors[2] = board[21]
@@ -156,6 +182,7 @@ func NewGame() *State {
 	board[20].neighbors[5] = board[19]
 
 	// Hex 21
+	board[21].id = 21
 	board[21].neighbors[0] = board[28]
 	board[21].neighbors[1] = board[29]
 	board[21].neighbors[2] = board[22]
@@ -164,18 +191,21 @@ func NewGame() *State {
 	board[21].neighbors[5] = board[20]
 
 	// Hex 22
+	board[22].id = 22
 	board[22].neighbors[0] = board[29]
 	board[22].neighbors[3] = board[15]
 	board[22].neighbors[4] = board[14]
 	board[22].neighbors[5] = board[21]
 
 	// Hex 23
+	board[23].id = 23
 	board[23].neighbors[0] = board[30]
 	board[23].neighbors[1] = board[24]
 	board[23].neighbors[2] = board[17]
 	board[23].neighbors[3] = board[16]
 
 	// Hex 24
+	board[24].id = 24
 	board[24].neighbors[0] = board[31]
 	board[24].neighbors[1] = board[25]
 	board[24].neighbors[2] = board[18]
@@ -184,6 +214,7 @@ func NewGame() *State {
 	board[24].neighbors[5] = board[30]
 
 	// Hex 25
+	board[25].id = 25
 	board[25].neighbors[0] = board[32]
 	board[25].neighbors[1] = board[26]
 	board[25].neighbors[2] = board[19]
@@ -192,6 +223,7 @@ func NewGame() *State {
 	board[25].neighbors[5] = board[31]
 
 	// Hex 26
+	board[26].id = 26
 	board[26].neighbors[0] = board[33]
 	board[26].neighbors[1] = board[34]
 	board[26].neighbors[2] = board[27]
@@ -200,6 +232,7 @@ func NewGame() *State {
 	board[26].neighbors[5] = board[32]
 
 	// Hex 27
+	board[27].id = 27
 	board[27].neighbors[0] = board[34]
 	board[27].neighbors[1] = board[35]
 	board[27].neighbors[2] = board[28]
@@ -208,6 +241,7 @@ func NewGame() *State {
 	board[27].neighbors[5] = board[26]
 
 	// Hex 28
+	board[28].id = 28
 	board[28].neighbors[0] = board[35]
 	board[28].neighbors[1] = board[36]
 	board[28].neighbors[2] = board[29]
@@ -216,46 +250,54 @@ func NewGame() *State {
 	board[28].neighbors[5] = board[27]
 
 	// Hex 29
+	board[29].id = 29
 	board[29].neighbors[0] = board[36]
 	board[29].neighbors[3] = board[22]
 	board[29].neighbors[4] = board[21]
 	board[29].neighbors[5] = board[28]
 
 	// Hex 30
+	board[30].id = 30
 	board[30].neighbors[1] = board[31]
 	board[30].neighbors[2] = board[24]
 	board[30].neighbors[3] = board[23]
 
 	// Hex 31
+	board[31].id = 31
 	board[31].neighbors[1] = board[32]
 	board[31].neighbors[2] = board[25]
 	board[31].neighbors[3] = board[24]
 	board[31].neighbors[4] = board[30]
 
 	// Hex 32
+	board[32].id = 32
 	board[32].neighbors[1] = board[33]
 	board[32].neighbors[2] = board[26]
 	board[32].neighbors[3] = board[25]
 	board[32].neighbors[4] = board[31]
 
 	// Hex 33
+	board[33].id = RED_BASE
 	board[33].neighbors[2] = board[34]
 	board[33].neighbors[3] = board[26]
 	board[33].neighbors[4] = board[32]
 
 	// Hex 34
+	board[34].id = 34
 	board[34].neighbors[2] = board[35]
 	board[34].neighbors[3] = board[27]
 	board[34].neighbors[4] = board[26]
 	board[34].neighbors[5] = board[33]
 
 	// Hex 35
+	board[35].id = 35
 	board[35].neighbors[2] = board[36]
 	board[35].neighbors[3] = board[28]
 	board[35].neighbors[4] = board[27]
 	board[35].neighbors[5] = board[34]
 
 	// Hex 36
+	board[36].id = 36
 	board[36].neighbors[3] = board[29]
 	board[36].neighbors[4] = board[28]
 	board[36].neighbors[5] = board[35]
