@@ -98,7 +98,7 @@ func (s *State) Undo() {
 		hex.piece = target.piece
 		target.piece = history.capture
 	case ROTATE:
-		hex.piece.Rotate(6 - history.move.target)
+		hex.piece.Rotate(NUM_DIRECTIONS - history.move.target)
 	}
 
 	if history.capture != nil {
