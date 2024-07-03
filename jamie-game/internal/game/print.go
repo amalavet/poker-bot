@@ -23,7 +23,7 @@ func (b Board) String() string {
 }
 
 func (s *State) String() string {
-	return s.board.String() + fmt.Sprintf("\nTurn: %v", s.turn)
+	return s.board.String() + fmt.Sprintf("\nTurn: %v\nScore:%d", s.turn, s.score)
 }
 
 func (m *Move) String() string {

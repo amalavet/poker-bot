@@ -27,9 +27,8 @@ type State struct {
 }
 
 func (s *State) LenHistory() int {
-    return len(s.history)
+	return len(s.history)
 }
-
 
 type History struct {
 	move    *Move
@@ -82,6 +81,10 @@ func (s *State) Move(m *Move) {
 	}
 }
 
+func (s *State) Evaluate() int {
+	return s.score
+}
+
 func (s *State) Undo() {
 	if len(s.history) == 0 {
 		return
@@ -96,6 +99,20 @@ func (s *State) Undo() {
 		target.piece = history.capture
 	case ROTATE:
 		hex.piece.Rotate(6 - history.move.target)
+	}
+
+	if history.capture != nil {
+		if history.capture.team == RED {
+			s.score++
+		} else {
+			s.score--
+		}
+	}
+
+	if s.turn == RED {
+		s.turn = BLACK
+	} else {
+		s.turn = RED
 	}
 }
 
