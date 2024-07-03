@@ -16,6 +16,7 @@ func main() {
 		fmt.Println("1: Undo")
 		fmt.Println("2: Random Game")
 		fmt.Println("3: Manual Move")
+		fmt.Println("4: Best Move")
 		fmt.Print("Choice: ")
 		fmt.Scanln(&choice)
 		if choice == 0 {
@@ -53,6 +54,11 @@ func main() {
 				continue
 			}
 			state.Move(move)
+		} else if choice == 4 {
+			fmt.Print("What depth:")
+			var depth int8
+			fmt.Scanln(&depth)
+			state.ExecuteBestMove(depth)
 		}
 
 	}
