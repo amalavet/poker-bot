@@ -1,5 +1,10 @@
 package game
 
+import (
+	"fmt"
+	"math/rand"
+)
+
 const (
 	NUM_DIRECTIONS = 6
 	NUM_HEXES      = 37
@@ -15,8 +20,20 @@ const (
 type Board [NUM_HEXES]*Hex
 
 type State struct {
-	board Board
-	turn  Team
+	board   Board
+	turn    Team
+	score   int
+	history []*History
+}
+
+func (s *State) LenHistory() int {
+    return len(s.history)
+}
+
+
+type History struct {
+	move    *Move
+	capture *Piece
 }
 
 type Piece struct {
@@ -38,8 +55,59 @@ type Hex struct {
 	neighbors [NUM_DIRECTIONS]*Hex
 }
 
-func (s *State) GenerateMoves() []Move {
-	var moves []Move
+func (s *State) Move(m *Move) {
+	hex := s.board[m.hex]
+	history := &History{m, nil}
+	switch m.action {
+	case TRAVEL:
+		target := hex.neighbors[m.target]
+		if target.piece != nil {
+			history.capture = target.piece
+			if target.piece.team == RED {
+				s.score--
+			} else {
+				s.score++
+			}
+		}
+		target.piece = hex.piece
+		hex.piece = nil
+	case ROTATE:
+		hex.piece.Rotate(m.target)
+	}
+	s.history = append(s.history, history)
+	if s.turn == RED {
+		s.turn = BLACK
+	} else {
+		s.turn = RED
+	}
+}
+
+func (s *State) Undo() {
+	if len(s.history) == 0 {
+		return
+	}
+	history := s.history[len(s.history)-1]
+	s.history = s.history[:len(s.history)-1]
+	hex := s.board[history.move.hex]
+	switch history.move.action {
+	case TRAVEL:
+		target := hex.neighbors[history.move.target]
+		hex.piece = target.piece
+		target.piece = history.capture
+	case ROTATE:
+		hex.piece.Rotate(6 - history.move.target)
+	}
+}
+
+func (s *State) RandomMove() {
+	moves := s.GenerateMoves()
+	fmt.Println(moves)
+	move := moves[rand.Intn(len(moves))]
+	s.Move(move)
+}
+
+func (s *State) GenerateMoves() []*Move {
+	var moves []*Move
 	for i, hex := range s.board {
 		if hex.piece == nil {
 			continue
@@ -59,32 +127,32 @@ func (s *State) GenerateMoves() []Move {
 			}
 
 			if n.piece == nil {
-				moves = append(moves, Move{TRAVEL, i, j})
+				moves = append(moves, &Move{TRAVEL, i, j})
 			} else if n.piece.team != s.turn {
-				moves = append(moves, Move{TRAVEL, i, j})
+				moves = append(moves, &Move{TRAVEL, i, j})
 			}
 		}
 
-		// // Add all possible rotations
-		// moves = append(moves, Move{ROTATE, i, 1})
-		// moves = append(moves, Move{ROTATE, i, 2})
-		// moves = append(moves, Move{ROTATE, i, 3})
-		// moves = append(moves, Move{ROTATE, i, 4})
-		// moves = append(moves, Move{ROTATE, i, 5})
+		// Add all possible rotations
+		moves = append(moves, &Move{ROTATE, i, 1})
+		moves = append(moves, &Move{ROTATE, i, 2})
+		moves = append(moves, &Move{ROTATE, i, 3})
+		moves = append(moves, &Move{ROTATE, i, 4})
+		moves = append(moves, &Move{ROTATE, i, 5})
 
 	}
 	return moves
 }
 
 type Move struct {
-	moveType  MoveType
-	hex       int
-	direction int
+	action action
+	hex    int
+	target int
 }
 
-type MoveType string
+type action string
 
 const (
-	TRAVEL MoveType = "TRAVEL"
-	ROTATE MoveType = "ROTATE"
+	TRAVEL action = "TRAVEL"
+	ROTATE action = "ROTATE"
 )

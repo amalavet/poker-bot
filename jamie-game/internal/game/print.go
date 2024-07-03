@@ -26,6 +26,13 @@ func (s *State) String() string {
 	return s.board.String() + fmt.Sprintf("\nTurn: %v", s.turn)
 }
 
+func (m *Move) String() string {
+	if m.action == TRAVEL {
+		return fmt.Sprintf("[Travel From:%v Direction:%v]\n", m.hex, m.target)
+	}
+	return fmt.Sprintf("[Rotate Hex:%v Amount:%v]\n", m.hex, m.target)
+}
+
 func (p *Piece) Fill() []string {
 	out := []string{" ", " ", " ", " ", " ", " ", " "}
 
