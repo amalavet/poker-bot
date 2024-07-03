@@ -13,6 +13,7 @@ const (
 type Team string
 
 const (
+	NONE  Team = ""
 	RED   Team = "Red"
 	BLACK Team = "Black"
 )
@@ -33,6 +34,7 @@ func (s *State) LenHistory() int {
 type History struct {
 	move    *Move
 	capture *Piece
+	win     Team
 }
 
 type Piece struct {
@@ -74,7 +76,7 @@ const WIN_SCORE = 1000
 
 func (s *State) Move(m *Move) {
 	hex := s.board[m.hex]
-	history := &History{m, nil}
+	history := &History{m, nil, NONE}
 	switch m.action {
 	case TRAVEL:
 		target := hex.neighbors[m.target]
@@ -89,10 +91,12 @@ func (s *State) Move(m *Move) {
 		target.piece = hex.piece
 		hex.piece = nil
 		if target.id == RED_BASE && s.turn == BLACK {
-			s.score = WIN_SCORE
+			s.score -= WIN_SCORE
+			history.win = BLACK
 		}
 		if target.id == BLACK_BASE && s.turn == RED {
-			s.score = -WIN_SCORE
+			s.score += WIN_SCORE
+			history.win = RED
 		}
 	case ROTATE:
 		hex.piece.Rotate(m.target)
@@ -129,11 +133,21 @@ func (s *State) Undo() {
 		}
 	}
 
+	if history.win == RED {
+		s.score -= WIN_SCORE
+	} else if history.win == BLACK {
+		s.score += WIN_SCORE
+	}
+
 	if s.turn == RED {
 		s.turn = BLACK
 	} else {
 		s.turn = RED
 	}
+}
+
+func (s *State) Evaluate() int {
+	return s.score
 }
 
 func (s *State) RandomMove() {

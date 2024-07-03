@@ -1,8 +1,8 @@
 package game
 
 const (
-	BLACK_BASE = 0
-	RED_BASE   = 33
+	RED_BASE   = 0
+	BLACK_BASE = 33
 )
 
 func NewGame() *State {
@@ -12,7 +12,7 @@ func NewGame() *State {
 	}
 
 	// Hex 0
-	board[0].id = BLACK_BASE
+	board[0].id = RED_BASE
 	board[0].neighbors[0] = board[2]
 	board[0].neighbors[1] = board[3]
 	board[0].neighbors[5] = board[1]
@@ -277,7 +277,7 @@ func NewGame() *State {
 	board[32].neighbors[4] = board[31]
 
 	// Hex 33
-	board[33].id = RED_BASE
+	board[33].id = BLACK_BASE
 	board[33].neighbors[2] = board[34]
 	board[33].neighbors[3] = board[26]
 	board[33].neighbors[4] = board[32]
