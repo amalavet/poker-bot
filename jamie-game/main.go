@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
-	g := game.NewGame()
-	fmt.Println(g)
+	state := game.NewGame()
+	fmt.Println(state)
+
+	moves := state.GenerateMoves()
+	fmt.Println(moves)
 }

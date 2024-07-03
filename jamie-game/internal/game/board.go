@@ -1,6 +1,6 @@
 package game
 
-func NewGame() Board {
+func NewGame() *State {
 	var board Board
 	for i := range board {
 		board[i] = &Hex{}
@@ -282,5 +282,5 @@ func NewGame() Board {
 	board[30].piece = &Piece{team: BLACK, arrows: [6]bool{false, false, true, true, false, false}}
 	board[36].piece = &Piece{team: BLACK, arrows: [6]bool{false, false, false, true, true, false}}
 
-	return board
+	return &State{board: board, turn: RED}
 }
