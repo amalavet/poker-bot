@@ -54,6 +54,21 @@ type Hex struct {
 	neighbors [NUM_DIRECTIONS]*Hex
 }
 
+func NewMove(action action, hex int, target int) *Move {
+	return &Move{action, hex, target}
+}
+
+func (s *State) IsValidMove(move *Move) bool {
+	for _, validMove := range s.GenerateMoves() {
+		if move.hex == validMove.hex &&
+			move.target == validMove.target &&
+			move.action == validMove.action {
+			return true
+		}
+	}
+	return false
+}
+
 func (s *State) Move(m *Move) {
 	hex := s.board[m.hex]
 	history := &History{m, nil}
