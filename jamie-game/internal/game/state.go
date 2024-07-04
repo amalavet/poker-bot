@@ -10,12 +10,11 @@ const (
 	NUM_HEXES      = 37
 )
 
-type Team string
+type Team bool
 
 const (
-	NONE  Team = ""
-	RED   Team = "Red"
-	BLACK Team = "Black"
+	RED   Team = true
+	BLACK Team = false
 )
 
 type Board [NUM_HEXES]*Hex
@@ -23,7 +22,6 @@ type Board [NUM_HEXES]*Hex
 type State struct {
 	board   Board
 	turn    Team
-	score   int
 	history []*History
 }
 
@@ -34,12 +32,12 @@ func (s *State) LenHistory() int {
 type History struct {
 	move    *Move
 	capture *Piece
-	win     Team
 }
 
 type Piece struct {
 	team   Team
 	arrows [NUM_DIRECTIONS]bool
+	value  int
 }
 
 func (p *Piece) Rotate(n int) {
@@ -55,6 +53,7 @@ type Hex struct {
 	piece     *Piece
 	neighbors [NUM_DIRECTIONS]*Hex
 	id        int
+	value     int
 }
 
 func NewMove(action action, hex int, target int) *Move {
@@ -72,41 +71,22 @@ func (s *State) IsValidMove(move *Move) bool {
 	return false
 }
 
-const WIN_SCORE = 1000
-
 func (s *State) Move(m *Move) {
 	hex := s.board[m.hex]
-	history := &History{m, nil, NONE}
+	history := &History{m, nil}
 	switch m.action {
 	case TRAVEL:
 		target := hex.neighbors[m.target]
 		if target.piece != nil {
 			history.capture = target.piece
-			if target.piece.team == RED {
-				s.score--
-			} else {
-				s.score++
-			}
 		}
 		target.piece = hex.piece
 		hex.piece = nil
-		if target.id == RED_BASE && s.turn == BLACK {
-			s.score -= WIN_SCORE
-			history.win = BLACK
-		}
-		if target.id == BLACK_BASE && s.turn == RED {
-			s.score += WIN_SCORE
-			history.win = RED
-		}
 	case ROTATE:
 		hex.piece.Rotate(m.target)
 	}
 	s.history = append(s.history, history)
-	if s.turn == RED {
-		s.turn = BLACK
-	} else {
-		s.turn = RED
-	}
+	s.turn = !s.turn
 }
 
 func (s *State) Undo() {
@@ -125,29 +105,7 @@ func (s *State) Undo() {
 		hex.piece.Rotate(NUM_DIRECTIONS - history.move.target)
 	}
 
-	if history.capture != nil {
-		if history.capture.team == RED {
-			s.score++
-		} else {
-			s.score--
-		}
-	}
-
-	if history.win == RED {
-		s.score -= WIN_SCORE
-	} else if history.win == BLACK {
-		s.score += WIN_SCORE
-	}
-
-	if s.turn == RED {
-		s.turn = BLACK
-	} else {
-		s.turn = RED
-	}
-}
-
-func (s *State) Evaluate() int {
-	return s.score
+	s.turn = !s.turn
 }
 
 func (s *State) RandomMove() {

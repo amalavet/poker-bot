@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 
 	"github.com/amalavet/poker-bot/jamie-game/internal/game"
 )
@@ -24,7 +23,7 @@ func main() {
 		} else if choice == 1 {
 			state.Undo()
 		} else if choice == 2 {
-			for len(state.GenerateValidMoves()) > 0 && math.Abs(float64(state.Evaluate())) < game.WIN_SCORE/2 {
+			for len(state.GenerateValidMoves()) > 0 {
 				state.RandomMove()
 				fmt.Println(state)
 			}

@@ -23,17 +23,15 @@ func (b Board) String() string {
 }
 
 func (t Team) String() string {
-	if t == RED {
+	if t {
 		return "RED [•]"
-	} else if t == BLACK {
+	} else {
 		return "BLACK"
 	}
-
-	return string(t)
 }
 
 func (s *State) String() string {
-	return s.board.String() + fmt.Sprintf("\nTurn: %v\nScore:%d", s.turn, s.score)
+	return s.board.String() + fmt.Sprintf("\nTurn: %v\nScore: %f", s.turn, s.Evaluate())
 }
 
 func (m *Move) String() string {
