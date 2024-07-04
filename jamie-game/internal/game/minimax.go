@@ -67,11 +67,11 @@ func (s *State) alphaBeta(depth int8, a, b float64) float64 {
 		return s.Evaluate()
 	}
 
-	hash := s.Hash()
-	if _, ok := seen[hash]; ok {
-		return s.Evaluate()
-	}
-	seen[hash] = struct{}{}
+	// hash := s.Hash()
+	// if _, ok := seen[hash]; ok {
+	// 	return s.Evaluate()
+	// }
+	// seen[hash] = struct{}{}
 
 	moves := s.GenerateValidMoves()
 	if s.turn == RED {

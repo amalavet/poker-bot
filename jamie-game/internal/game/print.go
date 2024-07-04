@@ -31,7 +31,16 @@ func (t Team) String() string {
 }
 
 func (s *State) String() string {
-	return s.board.String() + fmt.Sprintf("\nTurn: %v\nScore: %f", s.turn, s.Evaluate())
+	var lastMove *Move
+	if len(s.history) > 0 {
+		lastMove = s.history[len(s.history)-1].move
+	}
+	return s.board.String() + fmt.Sprintf(
+		"Last Move: %v\nTurn: %v\nScore: %f",
+		lastMove,
+		s.turn,
+		s.Evaluate(),
+	)
 }
 
 func (m *Move) String() string {

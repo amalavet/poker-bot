@@ -364,9 +364,10 @@ func NewGame() *State {
 	board[36].neighbors[5] = board[35]
 
 	board[1].piece = &Piece{
-		team:   RED,
-		arrows: [6]bool{true, false, false, true, false, false},
-		value:  DOUBLE_VALUE,
+		team:        RED,
+		arrows:      [6]bool{true, false, false, true, false, false},
+		value:       DOUBLE_VALUE,
+		symmetrical: true,
 	}
 	board[2].piece = &Piece{
 		team:   RED,
@@ -374,9 +375,10 @@ func NewGame() *State {
 		value:  PAWN_VALUE,
 	}
 	board[3].piece = &Piece{
-		team:   RED,
-		arrows: [6]bool{true, false, false, true, false, false},
-		value:  DOUBLE_VALUE,
+		team:        RED,
+		arrows:      [6]bool{true, false, false, true, false, false},
+		value:       DOUBLE_VALUE,
+		symmetrical: true,
 	}
 	board[4].piece = &Piece{
 		team:   RED,
@@ -415,9 +417,10 @@ func NewGame() *State {
 	}
 
 	board[32].piece = &Piece{
-		team:   BLACK,
-		arrows: [6]bool{true, false, false, true, false, false},
-		value:  DOUBLE_VALUE,
+		team:        BLACK,
+		arrows:      [6]bool{true, false, false, true, false, false},
+		value:       DOUBLE_VALUE,
+		symmetrical: true,
 	}
 	board[26].piece = &Piece{
 		team:   BLACK,
@@ -425,9 +428,10 @@ func NewGame() *State {
 		value:  PAWN_VALUE,
 	}
 	board[34].piece = &Piece{
-		team:   BLACK,
-		arrows: [6]bool{true, false, false, true, false, false},
-		value:  DOUBLE_VALUE,
+		team:        BLACK,
+		arrows:      [6]bool{true, false, false, true, false, false},
+		value:       DOUBLE_VALUE,
+		symmetrical: true,
 	}
 	board[31].piece = &Piece{
 		team:   BLACK,

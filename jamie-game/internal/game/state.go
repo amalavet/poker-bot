@@ -35,9 +35,10 @@ type History struct {
 }
 
 type Piece struct {
-	team   Team
-	arrows [NUM_DIRECTIONS]bool
-	value  int
+	team        Team
+	arrows      [NUM_DIRECTIONS]bool
+	value       int
+	symmetrical bool
 }
 
 func (p *Piece) Rotate(n int) {
@@ -154,7 +155,9 @@ func (s *State) GenerateValidMoves() []*Move {
 		// Add all possible rotations
 		moves = append(moves, &Move{ROTATE, i, 1})
 		moves = append(moves, &Move{ROTATE, i, 2})
-		moves = append(moves, &Move{ROTATE, i, 3})
+		if !hex.piece.symmetrical {
+			moves = append(moves, &Move{ROTATE, i, 3})
+		}
 		moves = append(moves, &Move{ROTATE, i, 4})
 		moves = append(moves, &Move{ROTATE, i, 5})
 
