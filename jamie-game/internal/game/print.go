@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func (b Board) String() string {
+func (b Board) UIString() string {
 	f := boardStr
 	guide := []string{
 		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "V", "w", "x", "y", "z", "~",
@@ -35,7 +35,7 @@ func (s *State) String() string {
 	if len(s.history) > 0 {
 		lastMove = s.history[len(s.history)-1].move
 	}
-	return s.board.String() + fmt.Sprintf(
+	return s.board.UIString() + fmt.Sprintf(
 		"Last Move: %v\nTurn: %v\nScore: %f",
 		lastMove,
 		s.turn,

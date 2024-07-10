@@ -54,7 +54,7 @@ type Hex struct {
 	piece     *Piece
 	neighbors [NUM_DIRECTIONS]*Hex
 	id        int
-	value     int
+	value     float64
 }
 
 func NewMove(action action, hex int, target int) *Move {

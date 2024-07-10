@@ -1,13 +1,15 @@
 package game
 
+import "math"
+
 const (
 	RED_BASE   = 0
 	BLACK_BASE = 33
 )
 
-const (
-	PLUS_WIN  = 1000
-	MINUS_WIN = -1000
+var (
+	PLUS_WIN  = math.Inf(1)
+	MINUS_WIN = math.Inf(-1)
 )
 
 const (
